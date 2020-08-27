@@ -1,0 +1,64 @@
+<%- include('header.ejs') %>
+<h2>Liste des clients</h2> 
+
+<label for="cars">Choose a car:</label>
+  <select id="cars">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+  </select>
+  
+     
+
+<table class="responsive-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Rue</th>
+            <th>Numero</th>
+            <th>Code postal</th>
+            <th>Localite</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+            <% if (data) { %>
+            <% for(var i = 0; i < data.length; i++) { %>
+              <tr>
+                <form class="contact-form" action="/update_client/<%= data[i].id_client %>" method="post">
+                <td>
+                  <input type="number" value="<%= data[i].id_client %>" name="id_client" style="width: 2em;" disabled></td> 
+                <td><input type ="texte" value="<%= data[i].nom %>" style="width: 8em;" name="nom"></td>
+                <td><input type ="texte" value="<%= data[i].prenom %>" style="width: 8em;" name="prenom"></td>
+                <td><input type ="texte" value="<%= data[i].rue %>" style="width: 12em;"name="rue"></td>
+                <td><input type ="texte" value="<%= data[i].numero %>" style="width: 2em;" name="numero"></td>
+                <td><input type="number" value="<%= data[i].code_postal %>" style="width: 6em;" name="code_postal"></td>
+                <td><input type ="texte" value="<%= data[i].localite %>" style="width: 8em;" name="localite"></td>
+                <td><button type="submit"><i class="material-icons">edit</i></button></td>
+                </form>
+                <td>
+                <button><a href="/delete_client/<%= data[i].id_client %>" style="color: black; text-decoration: none"><i class="material-icons">delete</i></a></button>                 
+                </td>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+    </br>
+      <button class="btn red lighten-3"><a href="/create_client" style="color: black; text-decoration: none">Créer client</a></button>
+    </main>
+
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+  </script>
+<%- include('footer.ejs') %>

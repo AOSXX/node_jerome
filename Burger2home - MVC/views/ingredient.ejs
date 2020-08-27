@@ -1,0 +1,126 @@
+<%- include('header.ejs') %>
+
+<h2>Liste des ingredients</h2> 
+
+<table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Allergenes</th>
+           
+          </tr>
+        </thead>
+        <tbody id="myTable">
+            
+            <% for(var i = 0; i < data.length; i++) { %>
+              
+              <tr>
+                <form class="contact-form" action="/update_ingredient/<%= data[i].id_ingredient %>" method="post">
+                <td><input type="number" value="<%= data[i].id_ingredient %>" style="width: 3em;" name="id_ingredient" disabled></td>
+                <td><input type ="texte" value="<%= data[i].nom_ingredient %>" name="nom_ingredient" style="width: 14em;"></td>
+                
+                <td>
+                  <fieldset class="checkbox-list">  
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="1"  id="<%= data[i].id_ingredient %>.1">Gluten</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="2" id="<%= data[i].id_ingredient %>.2">Crustacé</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="3" id="<%= data[i].id_ingredient %>.3">Oeuf</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="4" id="<%= data[i].id_ingredient %>.4">Poisson</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="5" id="<%= data[i].id_ingredient %>.5">Arachide</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="6" id="<%= data[i].id_ingredient %>.6">Soja</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="7" id="<%= data[i].id_ingredient %>.7">Lait</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="8" id="<%= data[i].id_ingredient %>.8">Fruit à coque</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="9" id="<%= data[i].id_ingredient %>.9">Céleri</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="10" id="<%= data[i].id_ingredient %>.10">Moutarde</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="11" id="<%= data[i].id_ingredient %>.11">Graines de sésame</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="12" id="<%= data[i].id_ingredient %>.12">Sulfite</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="13" id="<%= data[i].id_ingredient %>.13">Lupin</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_allergenes" value="14" id="<%= data[i].id_ingredient %>.14">Mollusque</label>
+                    </div>                    
+                  </fieldset>
+
+                  <!-- <select name ="nom_allergenes" value="data[i].nom_allergenes" multiple>
+                    <option value="1">1 - Gluten</option>
+                    <option value="2">2 - Crustacé</option>
+                    <option value="3">3 - Oeuf</option>
+                    <option value="4">4 - Poisson</option>
+                    <option value="5">5 - Arachide</option>
+                    <option value="6">6 - Soja</option>
+                    <option value="7">7 - Lait</option>
+                    <option value="8">8 - Fruit à coque</option>
+                    <option value="9">9 - Céleri</option>
+                    <option value="10">10 - Moutarde</option>
+                    <option value="11">11 - Graines de sésame</option>
+                    <option value="12">12 - Sulfite</option>
+                    <option value="13">13 - Lupin</option>
+                    <option value="14">14 - Mollusque</option>
+                    </select> -->
+                  
+                </td>
+                <td><button type="submit"><i class="material-icons">edit</i></button></td>
+                </form>
+                <td>
+                <button><a href="/delete_ingredient/<%= data[i].id_ingredient %>" style="color: black; text-decoration: none"><i class="material-icons">delete</i></a></button>                 
+                </td>
+              </tr>
+            
+          <% } %>
+          </tbody>
+      </table>
+
+      
+ 
+  
+    </br>
+      <button class="btn-create-ingredient"><a href="/create_ingredient" style="color: black; text-decoration: none">Créer ingrédient</a></button>
+
+      <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+
+  <script>
+   let datas = '<%- JSON.stringify(data) %>';
+   let datasArr = JSON.parse(datas);
+   let datas2 = '<%- JSON.stringify(data2) %>';
+   datas2Arr = JSON.parse(datas2);
+
+   datasArr.forEach(data => {
+     datas2Arr.forEach(data2 => {
+       for (let i = 0; i<13; i++) {
+        if (data.id_ingredient === data2.id_ingredient && data2.id_allergene === (i+1)) {
+          document.getElementById(`${data2.id_ingredient}.${i+1}`).checked = true;   
+        }
+       }
+     });
+   });
+  </script>
+
+  <%- include('footer.ejs') %>

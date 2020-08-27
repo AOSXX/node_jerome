@@ -1,0 +1,77 @@
+<%- include('header.ejs') %>
+
+<h2>Liste des Burgers</h2> 
+
+<table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Burgers</th>
+            <th>Prix</th>
+            <th>Ingredients</th>
+           
+          </tr>
+        </thead>
+        <tbody id="myTable">
+            
+            <% for(var i = 0; i < data.length; i++) { %>
+              
+              <tr>
+                <form class="contact-form" action="/update_burger/<%= data[i].id_burger %>" method="post">
+                <td><input type="number" value="<%= data[i].id_burger %>" style="width: 3em;" name="id_burger" disabled></td>
+                <td><input type ="texte" value="<%= data[i].nom_burger %>" name="nom_burger" style="width: 14em;"></td>
+                <td><input type="number" value="<%= data[i].prix_burger %>" style="width: 3em;" name="prix_burger" ></td>
+                <td>
+                  <fieldset class="checkbox-list">  
+                    <% for(var k = 0; k < data3.length;k++) { %>
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="nom_ingredients" value="<%= data3[k].id_ingredient %>"  id="<%= data3[k].id_ingredient %>.<%= i %>"><%= data3[k].nom_ingredient %></label>
+                    </div> 
+                    <% } %>                  
+                  </fieldset>                  
+                </td>
+                <td><button type="submit"><i class="material-icons">edit</i></button></td>
+                </form>
+                <td>
+                <button><a href="/delete_burger/<%= data[i].id_burger %>" style="color: black; text-decoration: none"><i class="material-icons">delete</i></a></button>                 
+                </td>
+              </tr>
+            
+          <% } %>
+          </tbody>
+      </table>
+
+      
+ 
+  
+    </br>
+      <button class="btn-create-ingredient"><a href="/create_burger" style="color: black; text-decoration: none">Créer Burger</a></button>
+
+      <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+
+  <script>
+   let datas = '<%- JSON.stringify(data) %>';
+   let datasArr = JSON.parse(datas);
+   let datas2 = '<%- JSON.stringify(data2) %>';
+   let datas3 = '<%- JSON.stringify(data3) %>';
+   datas2Arr = JSON.parse(datas2);
+   datas3Arr = JSON.parse(datas3);
+   console.log(datasArr);
+   console.log(datas2Arr);
+  console.log(datas3Arr);
+   for (let j = 0; j < datasArr.length; j++) {
+     datas2Arr.forEach (data2 => {
+       for (let i = 0; i < datas3Arr.length; i++) {
+          if (datasArr[j].id_burger === data2.id_burger && data2.id_ingredient === datas3Arr[i].id_ingredient) {
+          document.getElementById(`${datas3Arr[i].id_ingredient}.${j}`).checked = true;   
+          console.log(document.getElementById(`${datas3Arr[i].id_ingredient}.${j}`));
+        }
+       }
+     });
+   };
+  </script>
+
+  <%- include('footer.ejs') %>

@@ -1,0 +1,33 @@
+<%- include('header.ejs') %>
+<h2>Liste des allergenes</h2> 
+<table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+            <% if (data) { %>
+            <% for(var i = 0; i < data.length; i++) { %>
+              <tr>
+                <td><input type="number" value="<%= data[i].id_allergene %>" name="id_allergene" style="width: 2em;" disabled></td> 
+                <td><input type ="texte" value="<%= data[i].nom %>" name="nom"></td>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+    </main>
+
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+  </script>
+<%- include('footer.ejs') %>
