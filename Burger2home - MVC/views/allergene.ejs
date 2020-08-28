@@ -1,24 +1,26 @@
 <%- include('header.ejs') %>
 <h2>Liste des allergenes</h2> 
-<table>
-        <thead>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+        <% if (data) { %>
+        <% for(var i = 0; i < data.length; i++) { %>
           <tr>
-            <th>ID</th>
-            <th>Nom</th>
+            <td><input type="number" value="<%= data[i].id_allergene %>" name="id_allergene" style="width: 2em;" disabled></td> 
+            <td><input type ="texte" value="<%= data[i].nom %>" name="nom"></td>
           </tr>
-        </thead>
-        <tbody id="myTable">
-            <% if (data) { %>
-            <% for(var i = 0; i < data.length; i++) { %>
-              <tr>
-                <td><input type="number" value="<%= data[i].id_allergene %>" name="id_allergene" style="width: 2em;" disabled></td> 
-                <td><input type ="texte" value="<%= data[i].nom %>" name="nom"></td>
-              </tr>
-            <% } %>
-          <% } %>
-        </tbody>
-      </table>
-    </main>
+        <% } %>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+</main>
 
 <script>
   $(document).ready(function(){

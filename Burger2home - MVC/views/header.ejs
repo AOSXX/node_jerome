@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Burger2Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="/css/main.css" rel="stylesheet"  type="text/css" />
     
     
@@ -15,7 +15,8 @@
 
     <!-- NAVIGATION -->
     <header class="container">
-      <div class="nav">
+
+      <div class="nav-desktop">
           <img src="/css/Burger logo.png" alt="logo Burger2Home">
         <div class="menu">
           <ul>
@@ -28,7 +29,34 @@
          </div>
       </div>
 
+      <div class="nav-mobile">
+        <img src="/css/Burger logo.png" alt="logo Burger2Home">
+        <div class="burger-menu"><i class="fas fa-bars"></i></div>
+        <div class="menu-content">
+          <i class="fas fa-times"></i>
+          <ul>
+            <li><a href="/clients">Client</a></li>
+            <li><a href="/ingredient">Ingrédients</a></li>
+            <li><a href="/allergene">Allergènes</a></li>
+            <li><a href="/commande">Commande</a></li>
+            <li><a href="/burger">Burgers</a></li>
+          </ul> 
+        </div>
+      </div>
+
     </header>
 
+    <script>
+      let menu = document.querySelector('.burger-menu');
+      menu.addEventListener('click', function() {
+        let menuContent = document.querySelector('.menu-content');
+        menuContent.style.display = 'block';
+      });
+      let closeMenu = document.querySelector('.nav-mobile .menu-content i');
+      closeMenu.addEventListener('click', function() {
+        let menuContent = document.querySelector('.menu-content');
+        menuContent.style.display = 'none';
+      });
+    </script>
     <main class="container">
 

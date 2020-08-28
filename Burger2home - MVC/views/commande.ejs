@@ -1,93 +1,81 @@
 <%- include('header.ejs') %>
 
 <h2>Liste des Commandes</h2> 
-
-<table>
+<div class="table-responsive">
+    <table class="table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Date de la commande</th>
             <th>Prix</th>
             <th>Client</th>
-           
           </tr>
         </thead>
         <tbody id="myTable">
-            
             <% for(var i = 0; i < data.length; i++) { %>
-              
-              <tr>
-                <form class="contact-form" action="/update_commande/<%= data[i].id_commande %>" method="post">
-                <td><input type="number" value="<%= data[i].id_commande %>" style="width: 3em;" name="id_commande" disabled></td>
-                <td><input type ="text" value="<%= data[i].date_commande %>" name="date_commande" style="width: 14em;"></td>
-                <td><input type="number" value="<%= data[i].prix_commande %>" style="width: 3em;" name="prix_commande" disabled></td>
-                <td>
-                    <select name="id_client" id="client-select">
-                        <option name="id_client" value="<%= data[i].id_client %>"><%= data[i].nom_client %></option>
-                        <% for (let i = 0; i < data4.length; i++) { %>
-                        <option name="id_client" value="<%= data4[i].id_client %>"><%= data4[i].nom_client %></option>
+            <tr>
+            <form class="contact-form" action="/update_commande/<%= data[i].id_commande %>" method="post">
+            <td><input type="number" value="<%= data[i].id_commande %>" style="width: 3em;" name="id_commande" disabled></td>
+            <td><input type ="text" value="<%= data[i].date_commande %>" name="date_commande" style="width: 14em;"></td>
+            <td><input type="number" value="<%= data[i].prix_commande %>" style="width: 3em;" name="prix_commande" disabled></td>
+            <td>
+                <select name="id_client" id="client-select">
+                    <option name="id_client" value="<%= data[i].id_client %>"><%= data[i].nom_client %></option>
+                    <% for (let i = 0; i < data4.length; i++) { %>
+                    <option name="id_client" value="<%= data4[i].id_client %>"><%= data4[i].nom_client %></option>
+                    <% } %>
+                </select>
+            </td>
+            <td>
+                <table class="lignes-commande">
+                    <tr>
+                        <th>Articles</th>
+                        <th>Quantité</th>
+                    </tr>
+                    <% for(let j = 0; j < data2.length; j++) { %>
+                        <% if(data[i].id_commande === data2[j].id_commande) { %>
+                                <tr>
+                                    <td>
+                                        <select name="id_burger" id="burger-select">
+                                            <option name="id_burger" value="<%= data2[j].id_burger %>"><%= data2[j].nom %></option>
+                                            <% for (let i = 0; i < data3.length; i++) { %>
+                                            <option name="id_burger" value="<%= data3[i].id_burger %>"><%= data3[i].nom_burger %></option>
+                                            <% } %>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="quantite" id="quantite-select">
+                                            <option  value="<%= data2[j].quantite %>"><%= data2[j].quantite %></option>
+                                            <% for (let i = 0; i < 11; i++) { %>
+                                            <option value="<%= i+1 %>"><%= i+1 %></option>
+                                            <% } %>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <a href="/delete_ligne/<%=data2[j].id_ligne %>"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
                         <% } %>
-                    </select>
-                </td>
-                <td>
-                    <table class="lignes-commande">
-                        <tr>
-                            <th>Article</th>
-                            <th>Quantité</th>
-                        </tr>
-                        <% for(let j = 0; j < data2.length; j++) { %>
-                            <% if(data[i].id_commande === data2[j].id_commande) { %>
-                                    <tr>
-                                        <td>
-                                            <select name="id_burger" id="burger-select">
-                                                <option name="id_burger" value="<%= data2[j].id_burger %>"><%= data2[j].nom %></option>
-                                                <% for (let i = 0; i < data3.length; i++) { %>
-                                                <option name="id_burger" value="<%= data3[i].id_burger %>"><%= data3[i].nom_burger %></option>
-                                                <% } %>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="quantite" id="quantite-select">
-                                                <option  value="<%= data2[j].quantite %>"><%= data2[j].quantite %></option>
-                                                <% for (let i = 0; i < 11; i++) { %>
-                                                <option value="<%= i+1 %>"><%= i+1 %></option>
-                                                <% } %>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <a href="/delete_ligne/<%=data2[j].id_ligne %>"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                            <% } %>
-                        <% } %>     
-                        <tr>
-                            <td>
-                                <a href="/create_ligne/<%=data[i].id_commande %>"><i class="fas fa-plus"></i></a>
-                            </td>
-                        </tr>
-                    </table>           
-                </td>
-                <td><button type="submit"><i class="material-icons">edit</i></button></td>
-                </form>
-                <td>
-                <button><a href="/delete_commande/<%= data[i].id_commande %>" style="color: black; text-decoration: none"><i class="material-icons">delete</i></a></button>                 
-                </td>
-              </tr>
-            
-          <% } %>
-          </tbody>
-      </table>
+                    <% } %>     
+                    <tr>
+                        <td>
+                            <a href="/create_ligne/<%=data[i].id_commande %>"><i class="fas fa-plus"></i></a>
+                        </td>
+                    </tr>
+                </table>           
+            </td>
+            <td><button type="submit"><i class="fas fa-edit"></i></button></td>
+            </form>
+            <td>
+                <button><a href="/delete_commande/<%= data[i].id_commande %>" style="color: black; text-decoration: none"><i class="fas fa-trash"></i></a></button>                 
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+</div>
 
-      
- 
-  
-    </br>
-      <button class="btn-create-ingredient"><a href="/create_commande" style="color: black; text-decoration: none">Créer Commande</a></button>
-
-      <script
-  src="https://code.jquery.com/jquery-3.5.1.js"
-  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>
+<button class="btn-create"><a href="/create_commande" style="color: black; text-decoration: none"><i class="fas fa-plus-circle"></i> Créer Commande</a></button>
 
   <script>
    let datas = '<%- JSON.stringify(data) %>';
@@ -109,6 +97,7 @@
        }
      });
    };
+
   </script>
 
   <%- include('footer.ejs') %>
